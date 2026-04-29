@@ -305,7 +305,10 @@ runCharStagger();
   const toggle = document.getElementById('lang-toggle');
 
   function getLang() {
-    return localStorage.getItem(STORAGE_KEY) || 'zh';
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return saved;
+    const browserLang = navigator.language || navigator.languages?.[0] || '';
+    return browserLang.startsWith('zh') ? 'zh' : 'en';
   }
 
   function setLang(lang) {
